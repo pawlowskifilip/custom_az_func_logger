@@ -1,19 +1,24 @@
-import datetime
-import json
-import logging
-
 import azure.functions as func
 
+from src.custom_logger import log, logger
+
 app = func.FunctionApp()
+
+
+@log
+def testing(a: int, b: int) -> int:
+    logger.info("Inside testing function")
+    suming = a + b
+    return suming
 
 
 # version 0.0.1
 @app.route(route="AzLogger", auth_level=func.AuthLevel.ANONYMOUS)
 def AzLogger(req: func.HttpRequest) -> func.HttpResponse:
-    logging.info("Python HTTP trigger function processed a request.")
+    logger.info("Python HTTP trigger function processed a request.")
 
-    number_list = [x for x in range(10)]
-    logging.info(number_list)
+    testing(10, 20)
+    testing(10, "s")
 
     return func.HttpResponse(
         "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.",

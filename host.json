@@ -5,7 +5,9 @@
       "samplingSettings": {
         "isEnabled": true,
         "excludedTypes": "Request"
-      }
+      },
+      "enableDependencyTracking": false,  
+      "enablePerformanceCountersCollection": false  
     }
   },
   "extensionBundle": {
