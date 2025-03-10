@@ -16,11 +16,11 @@ def testing(a: int, b: int) -> int:
 @app.route(route="AzLogger", auth_level=func.AuthLevel.ANONYMOUS)
 def AzLogger(req: func.HttpRequest) -> func.HttpResponse:
     logger.info("Python HTTP trigger function processed a request.")
-    logger.warning("dupa")
+    logger.warning("WARNING")
 
     try:
         testing(10, 20)
-        testing(10, "s")
+        # testing(10, "s")
     finally:
         upload_logs_to_blob()
 
