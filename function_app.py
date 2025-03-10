@@ -1,6 +1,6 @@
 import azure.functions as func
 
-from src.custom_logger import log, logger
+from src.custom_logger_tmp import log, logger, upload_logs_to_blob
 
 app = func.FunctionApp()
 
@@ -12,13 +12,17 @@ def testing(a: int, b: int) -> int:
     return suming
 
 
-# version 0.0.1
+# version 0.0.2
 @app.route(route="AzLogger", auth_level=func.AuthLevel.ANONYMOUS)
 def AzLogger(req: func.HttpRequest) -> func.HttpResponse:
     logger.info("Python HTTP trigger function processed a request.")
+    logger.warning("dupa")
 
-    testing(10, 20)
-    testing(10, "s")
+    try:
+        testing(10, 20)
+        testing(10, "s")
+    finally:
+        upload_logs_to_blob()
 
     return func.HttpResponse(
         "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.",
